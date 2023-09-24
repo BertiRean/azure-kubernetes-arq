@@ -11,10 +11,6 @@ log_master:
 log_worker:
 	kubectl logs deployment/spark-worker -c spark-worker
 
-open_services:
-	minikube addons enable ingress
-	kubectl apply -f ./kubernetes/local/minikube-ingress.yaml
-
 delete:
 	kubectl delete all --all
 
