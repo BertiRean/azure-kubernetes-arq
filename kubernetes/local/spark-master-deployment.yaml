@@ -19,5 +19,8 @@ spec:
           command: ["/bin/bash"]
           args: ["spark-master"]
           ports:
+            - containerPort: 22
             - containerPort: 7077
             - containerPort: 8080
+            - containerPort: 9000
+            - containerPort: 8088

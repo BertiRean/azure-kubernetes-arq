@@ -10,5 +10,14 @@ spec:
     - name: spark
       port: 7077
       targetPort: 7077
+    - name: hadoop-webui
+      port: 9000
+      targetPort: 9000
+    - name: ssh
+      port: 22
+      targetPort: 22
+    - name: hadoop
+      port: 8088
+      targetPort: 8088
   selector:
     component: spark-master

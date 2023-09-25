@@ -1,6 +1,18 @@
 #!/bin/bash
 
 . /common.sh
+echo "Formatting HDFS"
+hdfs namenode --format --force
+
+echo "Initializing SSH"
+sudo service ssh start
+eval `ssh-agent -s`
+exec ssh-add &
+ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+echo "Starting DFS and Yarn"
+start-dfs.sh && start-yarn.sh
 
 echo "$(hostname -i) spark-master" >> /etc/hosts
 

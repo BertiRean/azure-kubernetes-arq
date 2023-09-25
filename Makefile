@@ -2,8 +2,16 @@ local_master:
 	kubectl apply -f ./kubernetes/local/spark-master-deployment.yaml
 	kubectl apply -f ./kubernetes/local/spark-master-service.yaml
 
+
+test_py:
+	python ./tests/test.py
+
 local_worker:
 	kubectl apply -f ./kubernetes/local/spark-worker-deployment.yaml
+	kubectl apply -f ./kubernetes/local/spark-worker-service.yaml
+
+restart: delete local_master
+	echo "Restarted"
 
 log_master:
 	kubectl logs deployment/spark-master -c spark-master
