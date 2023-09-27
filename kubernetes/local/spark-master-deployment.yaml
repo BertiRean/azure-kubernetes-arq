@@ -17,7 +17,7 @@ spec:
           image: spark-hadoop:3.2.0
           imagePullPolicy: Never
           command: ["/bin/bash"]
-          args: ["spark-master"]
+          args: ["/home/sparker/spark-master"]
           ports:
             - containerPort: 22
             - containerPort: 7077

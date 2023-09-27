@@ -5,10 +5,10 @@
   </property>
   <property>
     <name>dfs.namenode.name.dir</name>
-    <value>file:///data/namenode</value>
+    <value>file:///home/sparker/hdfs-hadoop/namenode</value>
   </property>
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>file:///data/datanode</value>
+    <value>file:///home/sparker/hdfs-hadoop/datanode</value>
   </property>
 </configuration>

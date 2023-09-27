@@ -1,9 +1,12 @@
 #!/bin/bash
+export SPARK_LOCAL_IP="$(hostname --ip-address)"
 
-. /common.sh
-echo "Formatting HDFS"
-hdfs namenode --format --force
+# Start bash to prevent Docker image from exit
+# exec bash
 
+unset SPARK_MASTER_PORT
+
+# SSH Server Initialization
 echo "Initializing SSH"
 sudo service ssh start
 eval `ssh-agent -s`
@@ -11,9 +14,29 @@ exec ssh-add &
 ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
-echo "Starting DFS and Yarn"
-start-dfs.sh && start-yarn.sh
+# Below 3 lines will hide the prompt about fingerprinting during ssh connection 
+# to HDFS
+ssh -oStrictHostKeyChecking=no spark-master uptime
+ssh -oStrictHostKeyChecking=no localhost uptime
+ssh -oStrictHostKeyChecking=no 0.0.0.0 uptime
 
-echo "$(hostname -i) spark-master" >> /etc/hosts
+# Starting the HDFS
+echo "Starting HDFS"
+start-dfs.sh > ./start-dfs.log
 
-/opt/spark/bin/spark-class org.apache.spark.deploy.master.Master --ip spark-master --port 7077 --webui-port 8080
+# Now, start YARN resource manager and redirect output to the logs
+echo "Starting YARN resource manager"
+yarn resourcemanager > ~/resourcemanager.log 2>&1 &
+
+sudo /bin/bash -c 'echo -e "$(hostname -i) spark-master" >> /etc/hosts'
+
+# Testing Hadoop
+echo "Testing Hadoop history server..."
+hdfs dfs -mkdir /shared
+hdfs dfs -mkdir -p /user/sparker/
+hdfs dfs -copyFromLocal /home/sparker/TGN_Entrega_GBA_Agosto.csv /user/sparker/
+hdfs dfs -mkdir /shared/spark-logs 
+
+# Next, start Spark master
+echo "Starting Spark master..."
+${SPARK_HOME}/bin/spark-class org.apache.spark.deploy.master.Master --ip spark-master --port 7077 --webui-port 8080
