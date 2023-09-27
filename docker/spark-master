@@ -32,10 +32,10 @@ sudo /bin/bash -c 'echo -e "$(hostname -i) spark-master" >> /etc/hosts'
 
 # Testing Hadoop
 echo "Testing Hadoop history server..."
-hdfs dfs -mkdir /shared
+hdfs dfs -mkdir -p /shared
 hdfs dfs -mkdir -p /user/sparker/
 hdfs dfs -copyFromLocal /home/sparker/TGN_Entrega_GBA_Agosto.csv /user/sparker/
-hdfs dfs -mkdir /shared/spark-logs 
+hdfs dfs -mkdir -p /shared/spark-logs 
 
 # Next, start Spark master
 echo "Starting Spark master..."

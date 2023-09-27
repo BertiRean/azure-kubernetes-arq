@@ -12,6 +12,7 @@ RUN apt-get update && \
 
 # Install needed packages
 RUN apt-get install less -y
+RUN apt-get -y install nano
 RUN apt-get -y install vim
 RUN apt-get -y install ssh
 RUN apt-get -y install openssh-server
@@ -89,7 +90,6 @@ COPY ./hadoop-conf/yarn-site.xml ./hadoop-$HADOOP_VERSION/etc/hadoop
 COPY ./hadoop-conf/hdfs-site.xml ./hadoop-$HADOOP_VERSION/etc/hadoop
 COPY spark-defaults.conf ./spark-$SPARK_VERSION-bin-hadoop3/conf
 RUN $HADOOP_HOME/bin/hdfs namenode -format
-
 
 # node manager ports
 EXPOSE 8040

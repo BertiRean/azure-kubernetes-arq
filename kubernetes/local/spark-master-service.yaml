@@ -19,5 +19,8 @@ spec:
     - name: hadoop
       port: 8088
       targetPort: 8088
+    - name: spark-log
+      port: 18080
+      targetPort: 18080
   selector:
     component: spark-master
