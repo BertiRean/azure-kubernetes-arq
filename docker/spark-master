@@ -23,20 +23,23 @@ ssh -oStrictHostKeyChecking=no 0.0.0.0 uptime
 sudo /bin/bash -c 'echo -e "$(hostname -i) spark-master" >> /etc/hosts'
 
 # Starting the HDFS
-# echo "Starting HDFS"
-# start-dfs.sh > ./start-dfs.log
+echo "Starting HDFS"
+start-dfs.sh > ./start-dfs.log
 
 # Now, start YARN resource manager and redirect output to the logs
-# echo "Starting YARN resource manager"
-# start-yarn.sh > ~/resourcemanager.log 2>&1 &
+echo "Starting YARN resource manager"
+start-yarn.sh > ~/resourcemanager.log 2>&1 &
 
 # Testing Hadoop
-# echo "Testing Hadoop history server..."
-# hdfs dfs -mkdir -p /shared
-# hdfs dfs -mkdir -p /user/sparker/
-# hdfs dfs -copyFromLocal /home/sparker/TGN_Entrega_GBA_Agosto.csv /user/sparker/
-# hdfs dfs -mkdir -p /shared/spark-logs 
+echo "Testing Hadoop history server..."
+hdfs dfs -mkdir -p /shared
+hdfs dfs -mkdir -p /user/sparker/
+hdfs dfs -copyFromLocal /home/sparker/TGN_Entrega_GBA_Agosto.csv /user/sparker/
+hdfs dfs -mkdir -p /shared/spark-logs 
 
 # Next, start Spark master
-# echo "Starting Spark master..."
-# $SPARK_HOME/sbin/start-master.sh --ip spark-master --port 7077 --webui-port 8080
+echo "Starting Spark master..."
+$SPARK_HOME/sbin/start-master.sh --ip spark-master --port 7077 --webui-port 8080
+
+# Start bash to prevent Docker image from exit
+exec bash

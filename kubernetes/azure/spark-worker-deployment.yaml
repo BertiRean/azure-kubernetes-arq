@@ -15,6 +15,7 @@ spec:
       containers:
         - name: spark-worker
           image: lomero/spark-arq:kubernetes-spark
+          imagePullPolicy: Always
           command: ["/bin/bash"]
           args: ["spark-worker"]
           ports:
