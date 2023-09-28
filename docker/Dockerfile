@@ -21,6 +21,7 @@ RUN apt-get -y install rsync
 RUN apt-get update && \
       apt-get -y install sudo
 RUN apt install -y python3-venv python3-pip
+RUN apt-get install -y nano
 RUN useradd -ms /bin/bash sparker
 RUN usermod -aG sudo sparker
 RUN passwd -d sparker
@@ -62,6 +63,9 @@ EXPOSE 8032
 EXPOSE 8033
 EXPOSE 8088
 EXPOSE 10020
+EXPOSE 19888
+EXPOSE 9870
+EXPOSE 9864
 EXPOSE 19888
 
 # add scripts and update spark default config
