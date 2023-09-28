@@ -15,7 +15,6 @@ spec:
       containers:
         - name: spark-master
           image: lomero/spark-arq:kubernetes-spark
-          imagePullPolicy: Never
           command: ["/bin/bash"]
           args: ["/home/sparker/spark-master"]
           ports:

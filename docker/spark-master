@@ -20,15 +20,15 @@ ssh -oStrictHostKeyChecking=no spark-master uptime
 ssh -oStrictHostKeyChecking=no localhost uptime
 ssh -oStrictHostKeyChecking=no 0.0.0.0 uptime
 
+sudo /bin/bash -c 'echo -e "$(hostname -i) spark-master" >> /etc/hosts'
+
 # Starting the HDFS
 echo "Starting HDFS"
 start-dfs.sh > ./start-dfs.log
 
 # Now, start YARN resource manager and redirect output to the logs
 echo "Starting YARN resource manager"
-yarn resourcemanager > ~/resourcemanager.log 2>&1 &
-
-sudo /bin/bash -c 'echo -e "$(hostname -i) spark-master" >> /etc/hosts'
+start-yarn.sh > ~/resourcemanager.log 2>&1 &
 
 # Testing Hadoop
 echo "Testing Hadoop history server..."
@@ -39,4 +39,4 @@ hdfs dfs -mkdir -p /shared/spark-logs
 
 # Next, start Spark master
 echo "Starting Spark master..."
-${SPARK_HOME}/bin/spark-class org.apache.spark.deploy.master.Master --ip spark-master --port 7077 --webui-port 8080
+$SPARK_HOME/sbin/start-master.sh --ip spark-master --port 7077 --webui-port 8080

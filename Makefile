@@ -41,5 +41,13 @@ az_master:
 	kubectl apply -f ./kubernetes/azure/spark-master-deployment.yaml
 	kubectl apply -f ./kubernetes/azure/spark-master-service.yaml
 
-az_worker:
+az_worker: az_master
 	kubectl apply -f ./kubernetes/azure/spark-worker-deployment.yaml
+
+delete_az:
+	kubectl.exe delete -f .\kubernetes\azure\spark-master-deployment.yaml
+	kubectl.exe delete -f .\kubernetes\azure\spark-master-service.yaml
+	kubectl.exe delete -f .\kubernetes\azure\spark-worker-deployment.yaml
+
+delete_az_worker:
+	kubectl.exe delete -f .\kubernetes\azure\spark-worker-deployment.yaml

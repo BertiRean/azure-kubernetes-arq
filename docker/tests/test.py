@@ -1,12 +1,16 @@
+from ast import Dict
+from re import M
+from pyspark import SparkConf
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
+conf = (
+    SparkConf()
+    .set("spark.sql.legacy.timeParserPolicy", "LEGACY")
+    .set("spark.submit.deployMode", "client")
+)
 # Crear Sesion de Spark
-spark = SparkSession.builder.master("yarn").appName("Arq-App").config(
-    map={
-     "spark.sql.legacy.timeParserPolicy" : "LEGACY",
-     "spark.submit.deployMode" : "client"
-    }).getOrCreate()
+spark = SparkSession.builder.master("yarn").appName("Arq-App").config(conf=conf).getOrCreate()
 
 #Se lee el archivo
 try:  
