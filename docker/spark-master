@@ -42,4 +42,5 @@ echo "Starting Spark master..."
 $SPARK_HOME/sbin/start-master.sh --ip spark-master --port 7077 --webui-port 8080
 
 # Start bash to prevent Docker image from exit
-exec bash
+# exec bash
+while true; do sleep 1000; done
