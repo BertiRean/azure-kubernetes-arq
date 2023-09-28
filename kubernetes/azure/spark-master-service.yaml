@@ -3,6 +3,7 @@ apiVersion: v1
 metadata:
   name: spark-master
 spec:
+  type: LoadBalancer
   ports:
     - name: webui
       port: 8080
