@@ -15,8 +15,16 @@ spec:
       containers:
         - name: spark-master
           image: lomero/spark-arq:kubernetes-spark
+          imagePullPolicy: Never
           command: ["/bin/bash"]
-          args: ["spark-master"]
+          args: ["/home/sparker/spark-master"]
           ports:
+            - containerPort: 22
             - containerPort: 7077
             - containerPort: 8080
+            - containerPort: 9000
+            - containerPort: 8088 # Hadoop - Resource UI
+            - containerPort: 9870 # Hadoop - NameNode UI
+            - containerPort: 9864 # Hadoop - DataNode UI
+            - containerPort: 19888 # Hadoop - Job History UI
+            - containerPort: 18080
